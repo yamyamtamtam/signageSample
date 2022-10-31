@@ -80,7 +80,7 @@
             }, 300);
         },
         //拡大・縮小
-        bigger: function () { //step:n回に分けてズームするためのnの値
+        bigger: function () {
             const max = 2; //ズーム比率の最大値を指定
             if (this.pinchZoom < max) {
                 const zoomLoop = setInterval(function () {

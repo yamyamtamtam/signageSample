@@ -93,9 +93,9 @@
         },
         smaller: function () {
             const min = 1; //ズーム比率の最小値を指定
-            if (this.pinchZoom > min) { //ズーム比率の最小値を指定
+            if (this.pinchZoom > min) {
                 const zoomLoop = setInterval(function () {
-                    if (this.pinchZoom <= min) { //ズーム比率の最小値を指定
+                    if (this.pinchZoom <= min) {
                         clearInterval(zoomLoop);
                     }
                     this.pinchZoom = this.pinchZoom - 0.01;
@@ -197,7 +197,7 @@
             setInterval(function () {
                 const time = new Date();
                 const currentTime = time.getTime() / 1000; //秒
-                if ((currentTime - this.initializeTime) > 600) { //10分=600（テスト用に10秒にしている）
+                if ((currentTime - this.initializeTime) > 600) { //10分=600
                     if (this.isHome) {
                         this.splashLinked = true;
                         this.splashStatus = true;

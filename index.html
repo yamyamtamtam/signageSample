@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="Keywords" content="" />
+  <meta name="Description" content="" />
+  <meta name="robots" content="noindex,nofollow" />
+  <title>デジタルサイネージサンプル</title>
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <link rel="stylesheet" href="./css/common.css" media="all" />
+  <link rel="stylesheet" href="./css/style.css" media="all" />
+  <script type="text/javascript" src="./js/vue.global.prod.js"></script>
+</head>
+
+<body id="app">
+  <div v-show="splashLinked">
+    <transition name="vanishOpacity">
+      <section v-on:click="splash" v-show="splashStatus" class="splash">
+        <div class="splashBg"></div>
+        <h1 class="splashTitle">サイネージ<br>サンプル</h1>
+        <p class="splashText">デジタルサイネージコンテンツの<br>サンプルです。<br>
+          4Kサイズ縦画面（2160px x 3840px）の画面を想定しています。
+        </p>
+        <img class="splashFinger" src="./images/splashFinger.png" alt="">
+      </section>
+    </transition>
+  </div>
+  <transition name="vanishOpacity">
+    <main v-on:touchstart="touchStart" v-on:touchmove="touchMove" v-on:touchend="touchEnd" v-show="pageLinkStatus">
+      <h1 class="title" style="top: 200px">サイネージサンプル<br>日本地図</h1>
+      <seciton class="map" v-bind:style="{ top: `${touchY}px`, left: `${touchX}px`, transform: `scale(${pinchZoom})`}">
+        <img class="mapBase" src="./images/bg.png" alt="">
+        <div class="btnInitial btnCapital" v-on:click="modal('./spot/sapporo.html')" style="top: 1200px; left: 1200px;">札幌</div>
+        <div class="btnInitial btnCapital" v-on:click="modal('./spot/sendai.html')" style="top: 1880px; left: 1200px;">仙台</div>
+        <div class="btnInitial btnCapital" v-on:click="modal('./spot/tokyo.html')" style="top: 2200px; left: 1100px;">東京</div>
+        <div class="btnInitial btnCapital" v-on:click="modal('./spot/nagoya.html')" style="top: 2300px; left: 800px;">名古屋</div>
+        <div class="btnInitial btnCapital" v-on:click="modal('./spot/osaka.html')" style="top: 2350px; left: 600px;">大阪</div>
+        <div class="btnInitial btnCapital" v-on:click="modal('./spot/fukuoka.html')" style="top: 2480px; left: 100px;">福岡</div>
+        <div class="btnInitial btnPref" v-on:click="pageLink('./hokkaido/index.html')" style="top: 1150px; left: 1500px;">北海道</div>
+      </seciton>
+      <div class="legend" style="bottom:200px">
+        <p>デジタルサイネージコンテンツのサンプルです。<br>
+          県庁所在地と都道府県の一部（北海道のみ実装）をクリックするとモーダルウインドウが開きます。<br>
+          ここには説明や凡例を置く想定です。</p>
+      </div>
+      <nav class="controllerNav" style="right:100px; top:2640px">
+        <img v-on:click="bigger()" src="./images/navBigger.png" alt="">
+        <img v-on:click="smaller()" src="./images/navSmaller.png" alt="">
+      </nav>
+      <transition name="showOpacity">
+        <div class="modal" v-show="modalStatus">
+          <div class="modalWrap">
+            <iframe v-bind:src="modalUrl"></iframe>
+            <button class="modalClose" v-on:click="modalClose">閉じる</button>
+            <button class="modalCloseTop" v-on:click="modalClose">×<br><span>閉じる</span></button>
+          </div>
+        </div>
+      </transition>
+    </main>
+  </transition>
+</body>
+<script type="text/javascript" src="./js/app.js"></script>
+<style scoped>
+  .vanishOpacity-enter-from {
+    opacity: 0;
+  }
+
+  .vanishOpacity-enter-active {
+    transition: opacity 1s;
+  }
+
+  .vanishOpacity-enter-to {
+    opacity: 1;
+  }
+
+  .vanishOpacity-leave {
+    opacity: 1;
+  }
+
+  .vanishOpacity-leave-active {
+    transition: opacity 1s;
+  }
+
+  .vanishOpacity-leave-to {
+    opacity: 0;
+  }
+
+  .showOpacity-enter-from {
+    opacity: 0;
+  }
+
+  .showOpacity-enter-active {
+    transition: opacity 1s ease;
+  }
+
+  .showOpacity-enter-to {
+    opacity: 1;
+  }
+
+  .showOpacity-leave {
+    opacity: 1;
+  }
+
+  .showOpacity-leave-active {
+    transition: opacity 1s ease;
+  }
+
+  .showOpacity-leave-to {
+    opacity: 0;
+  }
+</style>
+
+</html>
